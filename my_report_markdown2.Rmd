@@ -1,0 +1,51 @@
+---
+title: "gapminder-report"
+author: "Fritzi"
+date: "January 16, 2019"
+output: github_document
+---
+The output file can also be in github format. Choose output: github_document 
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Load the data, insert R chunk using ctrl alt i
+First, we are going to use read.csv to load the gapminder data.
+
+
+```{r}
+dat <- read.csv("data_R/gapminder_data.csv")
+summary(dat)
+```
+
+# Plot data
+
+## Setup
+
+We need to load the ggplot2 package
+```{r}
+library(ggplot2)
+```
+
+## Plotting
+
+```{r}
+ggplot(data = dat,
+       mapping = aes(x = year,
+                     y = lifeExp,
+                     by = country,
+                     color = continent)) +
+  facet_wrap(~ continent) +
+  geom_line() +
+  theme_bw()
+```
+
+## Insert premade figure
+
+
+We have a figure at "figures/life_exp.png". How do we insert it into our report?
+
+```{r, fig.cap = "Life expectancy vs, Year, for each country facetted by continent"}
+knitr::include_graphics("figures/life_exp.png")
+```
+
